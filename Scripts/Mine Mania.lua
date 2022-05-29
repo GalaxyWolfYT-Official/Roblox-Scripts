@@ -67,14 +67,19 @@ autoMining:addSlider("Auto Mining Radius", 100000, 0, 100000, function(value)
     getfenv().autoMineRadius = value
 end)
 
-local theme = venyx:addPage("Theme", 5012544693)
-local colors = theme:addSection("Colors")
+local gui = venyx:addPage("Gui", 5012544693)
+local settings = gui:addSection("Settings")
 
 for theme, color in pairs(themes) do
-	colors:addColorPicker(theme, color, function(color3)
+	settings:addColorPicker(theme, color, function(color3)
 		venyx:setTheme(theme, color3)
 	end)
 end
 
--- load
+settings:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
+	venyx:toggle()
+end, function()
+    venyx:Notify("Notification", "GUI Toggle Keybind Changed!")
+end)
+
 venyx:SelectPage(venyx.pages[1], true)
