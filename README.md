@@ -4,4 +4,4 @@
 
 
 # Usage
-- ## Example: `loadstring(game:HttpGet(""))()`
+## Example: `loadstring(game:HttpGet(""))()`
