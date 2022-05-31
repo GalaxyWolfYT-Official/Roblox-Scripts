@@ -2,26 +2,27 @@ local lp = game.Players.LocalPlayer
 local RP = game:GetService("ReplicatedStorage")
 local RemoteFunction = RP.RemoteFunction
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
+local library = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
 local venyx = library.new("Tower Defense GUI made by GalaxyWolfYT", 5012544693)
 
 local themes = {
-	Background = Color3.fromRGB(24, 24, 24),
-	Glow = Color3.fromRGB(0, 0, 0),
-	Accent = Color3.fromRGB(10, 10, 10),
-	LightContrast = Color3.fromRGB(20, 20, 20),
-	DarkContrast = Color3.fromRGB(14, 14, 14),  
-	TextColor = Color3.fromRGB(255, 255, 255)
+    Background = Color3.fromRGB(24, 24, 24),
+    Glow = Color3.fromRGB(0, 0, 0),
+    Accent = Color3.fromRGB(10, 10, 10),
+    LightContrast = Color3.fromRGB(20, 20, 20),
+    DarkContrast = Color3.fromRGB(14, 14, 14),
+    TextColor = Color3.fromRGB(255, 255, 255)
 }
 
 function getPlayerTowers()
     local towers = {}
     for i, tower in ipairs(workspace.Towers:GetChildren()) do
-        --local success, error = pcall(function()
-            if tower:FindFirstChild("Owner") and tower.Owner.Value == lp then
-                table.insert(towers, tower)
-            end
-        --end)
+        -- local success, error = pcall(function()
+        if tower:FindFirstChild("Owner") and tower.Owner.Value == lp then
+            table.insert(towers, tower)
+        end
+        -- end)
     end
     return towers
 end
@@ -50,25 +51,33 @@ end
 
 function sellTroops()
     for i, troop in pairs(getNormalTowers()) do
-        RemoteFunction:InvokeServer("Troops", "Sell", {["Troop"] = troop})
+        RemoteFunction:InvokeServer("Troops", "Sell", {
+            ["Troop"] = troop
+        })
     end
 end
 
 function upgrade(what)
-    RemoteFunction:InvokeServer("Troops", "Upgrade", "Set", {["Troop"] = what})
+    RemoteFunction:InvokeServer("Troops", "Upgrade", "Set", {
+        ["Troop"] = what
+    })
 end
 
 function sellFarmsOnLastRound()
     if RP.State.Wave.Value > 2 then
         for i, farm in pairs(getFarms()) do
-            RemoteFunction:InvokeServer("Troops", "Sell", {["Troop"] = farm})
+            RemoteFunction:InvokeServer("Troops", "Sell", {
+                ["Troop"] = farm
+            })
         end
     end
 end
 
 function sellFarms()
     for i, farm in pairs(getFarms()) do
-        RemoteFunction:InvokeServer("Troops", "Sell", {["Troop"] = farm})
+        RemoteFunction:InvokeServer("Troops", "Sell", {
+            ["Troop"] = farm
+        })
     end
 end
 
@@ -94,7 +103,7 @@ local utilitiesTroops = troops:addSection("Utilities")
 autoTroops:addToggle("Upgrade Troops", nil, function(status)
     getrenv().autoUpTroops = status
     spawn(function()
-        while wait(.1) do
+        while task.wait(.1) do
             if getrenv().autoUpTroops then
                 upgradeTroops()
             else
@@ -107,7 +116,7 @@ end)
 autoTroops:addToggle("Upgrade farms", nil, function(status)
     getrenv().autoUpFarms = status
     spawn(function()
-        while wait(.1) do
+        while task.wait(.1) do
             if getrenv().autoUpFarms then
                 upgradeFarms()
             else
@@ -117,10 +126,10 @@ autoTroops:addToggle("Upgrade farms", nil, function(status)
     end)()
 end)
 
-utilitiesTroops:addToggle("Sell Farms On Last Round", nil, function (status)
+utilitiesTroops:addToggle("Sell Farms On Last Round", nil, function(status)
     getrenv().autoSellFarms = status
     spawn(function()
-        while wait(.1) do
+        while task.wait(.1) do
             if getrenv().autoSellFarms then
                 sellFarmsOnLastRound()
             else
@@ -142,13 +151,13 @@ local gui = venyx:addPage("Gui", 5012544693)
 local settings = gui:addSection("Settings")
 
 for theme, color in pairs(themes) do
-	settings:addColorPicker(theme, color, function(color3)
-		venyx:setTheme(theme, color3)
-	end)
+    settings:addColorPicker(theme, color, function(color3)
+        venyx:setTheme(theme, color3)
+    end)
 end
 
 settings:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-	venyx:toggle()
+    venyx:toggle()
 end, function()
     venyx:Notify("Notification", "GUI Toggle Keybind Changed!")
 end)
