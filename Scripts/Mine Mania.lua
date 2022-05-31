@@ -1,10 +1,14 @@
 local library = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
 local venyx = library.new("This Game Is A Based On Other Games XD", 5012544693)
-getfenv().autoMineSpeed = 0.5
-getfenv().autoMineRadius = 1000
+
+
+--Variables START
+getrenv().autoMineSpeed = 0.5
+getrenv().autoMineRadius = 1000
 
 local lp = game.Players.LocalPlayer
+local rp = game:GetService("ReplicatedStorage")
 
 local themes = {
     Background = Color3.fromRGB(24, 24, 24),
@@ -15,7 +19,9 @@ local themes = {
     TextColor = Color3.fromRGB(255, 255, 255)
 }
 
-function getMine()
+-- Variables END
+
+function getMines()
     local mines = {}
     for _, obj in ipairs(game.Workspace.Map.Mines:GetDescendants()) do
         if string.find(obj.Name, "Mine") then
@@ -28,21 +34,22 @@ function getMine()
 end
 
 function sell()
-    game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.MiningService.SellInventory:InvokeServer(
-        getMine().Seller.Seller)
+    for i, mine in pairs(getMines()) do
+        rp.Aero.AeroRemoteServices.MiningService.SellInventory:InvokeServer(mine.Seller.Seller)
+    end
 end
 
 function damage()
-    local mines = getMine()
-    for i, mine in pairs(mines) do
+    local mines = getMines()
+    for i, mine in ipairs(mines) do
         for _, block in ipairs(mine.MineableBlocks:GetChildren()) do
-            if (lp.Character.HumanoidRootPart.Position - block.Position).magnitude < getfenv().autoMineRadius then
-                coroutine.wrap(function()
-                    game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.BlockService.DamageBlock:InvokeServer(
+            if (lp.Character.HumanoidRootPart.Position - block.Position).magnitude < getrenv().autoMineRadius then
+                spawn(function()
+                    rp.Aero.AeroRemoteServices.BlockService.DamageBlock:InvokeServer(
                         block.UniqueId.Value, block.Parent.Parent)
                     sell()
                 end)()
-                task.wait(getfenv().autoMineSpeed)
+                task.wait(getrenv().autoMineSpeed)
             end
         end
     end
@@ -52,10 +59,10 @@ local mining = venyx:addPage("Mining", 5012544693)
 local autoMining = mining:addSection("Auto")
 
 autoMining:addToggle("Auto Mining + Selling", nil, function(value)
-    getfenv().damageBool = value
-    coroutine.wrap(function()
-        while getfenv().damageBool == true and task.wait() do
-            if getfenv().damageBool == false then
+    getrenv().damageBool = value
+    spawn(function()
+        while getrenv().damageBool == true and task.wait() do
+            if getrenv().damageBool == false then
                 break
             end
             damage()
@@ -65,11 +72,11 @@ end)
 
 autoMining:addSlider("Auto Mining Speed (Milliseconds)", 500, 0, 1000, function(value)
     local speed = value / 1000
-    getfenv().autoMineSpeed = speed
+    getrenv().autoMineSpeed = speed
 end)
 
 autoMining:addSlider("Auto Mining Radius", 100000, 0, 100000, function(value)
-    getfenv().autoMineRadius = value
+    getrenv().autoMineRadius = value
 end)
 
 local gui = venyx:addPage("Gui", 5012544693)

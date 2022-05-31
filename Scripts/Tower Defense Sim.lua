@@ -18,11 +18,11 @@ local themes = {
 function getPlayerTowers()
     local towers = {}
     for i, tower in ipairs(workspace.Towers:GetChildren()) do
-        -- local success, error = pcall(function()
-        if tower:FindFirstChild("Owner") and tower.Owner.Value == lp then
-            table.insert(towers, tower)
-        end
-        -- end)
+        local success, error = pcall(function()
+            if tower:FindFirstChild("Owner") and tower.Owner.Value == lp then
+                table.insert(towers, tower)
+            end
+        end)
     end
     return towers
 end
@@ -104,11 +104,10 @@ autoTroops:addToggle("Upgrade Troops", nil, function(status)
     getrenv().autoUpTroops = status
     spawn(function()
         while task.wait(.1) do
-            if getrenv().autoUpTroops then
-                upgradeTroops()
-            else
+            if getrenv().autoUpTroops == false then
                 break
             end
+            upgradeTroops()
         end
     end)()
 end)
@@ -117,11 +116,10 @@ autoTroops:addToggle("Upgrade farms", nil, function(status)
     getrenv().autoUpFarms = status
     spawn(function()
         while task.wait(.1) do
-            if getrenv().autoUpFarms then
-                upgradeFarms()
-            else
+            if getrenv().autoUpFarms == false then
                 break
             end
+            upgradeFarms()
         end
     end)()
 end)
@@ -130,11 +128,10 @@ utilitiesTroops:addToggle("Sell Farms On Last Round", nil, function(status)
     getrenv().autoSellFarms = status
     spawn(function()
         while task.wait(.1) do
-            if getrenv().autoSellFarms then
-                sellFarmsOnLastRound()
-            else
+            if getrenv().autoSellFarms == false then
                 break
             end
+            sellFarmsOnLastRound()
         end
     end)()
 end)

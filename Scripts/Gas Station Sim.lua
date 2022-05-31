@@ -78,7 +78,7 @@ local gasSection = autoPage:addSection("Gas Farm")
 gasSection:addToggle("Auto Farm (Private Server Recommened)", nil, function(value)
     getrenv().gasAutoFarmBool = value
     spawn(function()
-        while task.task.wait() and getrenv().gasAutoFarmBool do
+        while task.wait() and getrenv().gasAutoFarmBool do
             if getrenv().gasAutoFarmBool == false then
                 break
             end
@@ -95,7 +95,7 @@ local longPromptsSection = promptPage:addSection("Prompt Reach")
 fastPromptsSection:addToggle("Toggle", nil, function(value)
     getrenv().fastPromptsBool = value
     spawn(function()
-        while task.task.wait() and getrenv().fastPromptsBool do
+        while task.wait() and getrenv().fastPromptsBool do
             if getrenv().fastPromptsBool == false then
                 break
             end
@@ -115,7 +115,7 @@ getrenv().promptReach = 15
 longPromptsSection:addToggle("Toggle", nil, function(value)
     getrenv().longPromptsBool = value
     spawn(function()
-        while task.task.wait() and getrenv().longPromptsBool do
+        while task.wait() and getrenv().longPromptsBool do
             if getrenv().longPromptsBool == false then
                 break
             end
