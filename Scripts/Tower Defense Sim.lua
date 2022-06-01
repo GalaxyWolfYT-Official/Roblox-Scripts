@@ -64,7 +64,7 @@ function upgrade(what)
 end
 
 function sellFarmsOnLastRound()
-    if RP.State.Wave.Value > 2 then
+    if RP.State.Wave.Value == 40 then
         for i, farm in pairs(getFarms()) do
             RemoteFunction:InvokeServer("Troops", "Sell", {
                 ["Troop"] = farm
