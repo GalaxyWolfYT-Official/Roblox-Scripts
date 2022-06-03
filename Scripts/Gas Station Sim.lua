@@ -61,7 +61,7 @@ end
 
 local library = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
-local venyx = library.new("Gas Station Simulator Script Made By GalaxyWolfYT#0788", 5012544693)
+local venyx = library.new("Gas Station Simulator | GalaxyWolfYT", 5012544693)
 
 local themes = {
     Background = Color3.fromRGB(24, 24, 24),
@@ -72,7 +72,7 @@ local themes = {
     TextColor = Color3.fromRGB(255, 255, 255)
 }
 
-local autoPage = venyx:addPage("Auto Farm", 5012544693)
+local autoPage = venyx:addPage("Auto Farm", 5012544944)
 local gasSection = autoPage:addSection("Gas Farm")
 
 gasSection:addToggle("Auto Farm (Private Server Recommened)", nil, function(value)
@@ -88,7 +88,7 @@ gasSection:addToggle("Auto Farm (Private Server Recommened)", nil, function(valu
     end)
 end)
 
-local promptPage = venyx:addPage("Prompts", 5012544693)
+local promptPage = venyx:addPage("Prompts", 5012544944)
 local fastPromptsSection = promptPage:addSection("Fast Prompts")
 local longPromptsSection = promptPage:addSection("Prompt Reach")
 
@@ -129,19 +129,20 @@ longPromptsSection:addSlider("Reach", 10, 0, 100, function(value)
     getrenv().promptReach = value
 end)
 
-local gui = venyx:addPage("Gui", 5012544693)
-local settings = gui:addSection("Settings")
+local settings = venyx:addPage("Settings", 5012544372)
+local gui = settings:addSection("GUI")
+local colors = settings:addSection("Colors")
 
-for theme, color in pairs(themes) do
-    settings:addColorPicker(theme, color, function(color3)
-        venyx:setTheme(theme, color3)
-    end)
-end
-
-settings:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-    venyx:toggle()
+gui:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
+	venyx:toggle()
 end, function()
-    venyx:Notify("Notification", "GUI Toggle Keybind Changed!")
+	venyx:Notify("Settings", "GUI toggle key changed!")
 end)
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+	colors:addColorPicker(theme, color, function(color3)
+		venyx:setTheme(theme, color3)
+	end)
+end
 
 venyx:SelectPage(venyx.pages[1], true)

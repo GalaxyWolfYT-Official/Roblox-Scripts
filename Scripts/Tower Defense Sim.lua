@@ -4,7 +4,7 @@ local RemoteFunction = RP.RemoteFunction
 
 local library = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
-local venyx = library.new("Tower Defense GUI made by GalaxyWolfYT", 5012544693)
+local venyx = library.new("Tower Defense | GalaxyWolfYT", 5012544693)
 
 local themes = {
     Background = Color3.fromRGB(24, 24, 24),
@@ -144,19 +144,21 @@ utilitiesTroops:addButton("Sell All Troops", function()
     sellTroops()
 end)
 
-local gui = venyx:addPage("Gui", 5012544693)
-local settings = gui:addSection("Settings")
+local settings = venyx:addPage("Settings", 5012544372)
+local gui = settings:addSection("GUI")
+local colors = settings:addSection("Colors")
 
-for theme, color in pairs(themes) do
-    settings:addColorPicker(theme, color, function(color3)
-        venyx:setTheme(theme, color3)
-    end)
+gui:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
+	venyx:toggle()
+end, function()
+	venyx:Notify("Settings", "GUI toggle key changed!")
+end)
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+	colors:addColorPicker(theme, color, function(color3)
+		venyx:setTheme(theme, color3)
+	end)
 end
 
-settings:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-    venyx:toggle()
-end, function()
-    venyx:Notify("Notification", "GUI Toggle Keybind Changed!")
-end)
 
 venyx:SelectPage(venyx.pages[1], true)
