@@ -1,4 +1,6 @@
-# Welcome to the my script repository!
+# Welcome to the my script repository
+
+## Watch the proggres on the  [Trello Board](https://trello.com/b/CnZruvZ5/galaxywolfyts-scripts)
 
 All scripts are in the [Scripts](https://github.com/GalaxyWolfYT-Official/Roblox-Scripts/tree/main/Scripts) repository.
 
