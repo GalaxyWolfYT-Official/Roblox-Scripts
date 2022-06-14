@@ -40,7 +40,7 @@ end
 utilitiesTab:Toggle{
 	Name = "Infinite Water",
 	StartingState = false,
-	Description = nil,
+	Description = "Automatically refills the water",
 	Callback = function(state) 
 		infiniteWater(state) 
 	end
@@ -48,7 +48,7 @@ utilitiesTab:Toggle{
 
 utilitiesTab:Button{
 	Name = "Clean Once",
-	Description = nil,
+	Description = "Cleans The Dirt Once",
 	Callback = function()
         spawn(function()
 			clean(workspace.Worlds)
@@ -57,9 +57,9 @@ utilitiesTab:Button{
 }
 
 utilitiesTab:Toggle{
-	Name = "Auto Clean (Lag!)",
+	Name = "Auto Clean",
 	StartingState = false,
-	Description = nil,
+	Description = "Auto Cleans (Lag!)",
 	Callback = function(state)
 		getfenv().autoClean = state
 		spawn(function()
