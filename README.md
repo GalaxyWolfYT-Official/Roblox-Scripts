@@ -16,6 +16,8 @@ The scripts have only been tested on Synapse X.
 - [Starving Artists](https://github.com/GalaxyWolfYT-Official/Roblox-Scripts/blob/main/Scripts/Starving%20Artists/Starving_Artists.lua).
 - [Mining Simulator 2](https://github.com/GalaxyWolfYT-Official/Roblox-Scripts/blob/main/Scripts/Mining%20Sim%202.lua).
 
+- [Pressure Washing Simulator](https://github.com/GalaxyWolfYT-Official/Roblox-Scripts/blob/main/Scripts/Pressure%20Wash%20Sim.lua).
+
 ## Usage
 
 ### Example
