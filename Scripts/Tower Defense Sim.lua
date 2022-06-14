@@ -1,10 +1,12 @@
+local guiName = "Tower Defense | GalaxyWolfYT"
 local lp = game.Players.LocalPlayer
-local RP = game:GetService("ReplicatedStorage")
+local RP = game:WaitForChild("ReplicatedStorage")
 local RemoteFunction = RP.RemoteFunction
 
+if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
 local library = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
-local venyx = library.new("Tower Defense | GalaxyWolfYT", 5012544693)
+local venyx = library.new(guiName, 5012544693)
 
 local themes = {
     Background = Color3.fromRGB(24, 24, 24),
@@ -149,16 +151,15 @@ local gui = settings:addSection("GUI")
 local colors = settings:addSection("Colors")
 
 gui:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-	venyx:toggle()
+    venyx:toggle()
 end, function()
-	venyx:Notify("Settings", "GUI toggle key changed!")
+    venyx:Notify("Settings", "GUI toggle key changed!")
 end)
 
 for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
-	colors:addColorPicker(theme, color, function(color3)
-		venyx:setTheme(theme, color3)
-	end)
+    colors:addColorPicker(theme, color, function(color3)
+        venyx:setTheme(theme, color3)
+    end)
 end
-
 
 venyx:SelectPage(venyx.pages[1], true)

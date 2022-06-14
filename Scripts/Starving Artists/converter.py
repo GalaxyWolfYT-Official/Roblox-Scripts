@@ -2,8 +2,11 @@ from PIL import Image
 import numpy as np
 
 # Function that rezizes an image
+
+
 def resize(image, width, height):
     return image.resize((width, height), Image.ANTIALIAS)
+
 
 def main():
     image = input("Enter the name of the image: ")
@@ -17,7 +20,7 @@ def main():
     with open("./Converted/" + imageName + ".json", "w") as f:
         f.write(image)
 
-    
+
 if __name__ == "__main__":
     while True:
         main()

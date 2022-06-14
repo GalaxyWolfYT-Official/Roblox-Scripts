@@ -1,11 +1,26 @@
+local guiName = "Gas Station Simulator | GalaxyWolfYT"
 local lp = game.Players.LocalPlayer
 local mouse = lp:GetMouse()
-local rp = game:GetService("ReplicatedStorage")
+local rp = game:WaitForChild("ReplicatedStorage")
 
 local promptNameList = {"Clean", "Scan", "FinishFuel", "Refuel", "BuyBloxBull"}
 
 getrenv().promptSpeed = 0
 getrenv().promptReach = 15
+
+if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
+local library = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
+local venyx = library.new(guiName, 5012544693)
+
+local themes = {
+    Background = Color3.fromRGB(24, 24, 24),
+    Glow = Color3.fromRGB(0, 0, 0),
+    Accent = Color3.fromRGB(10, 10, 10),
+    LightContrast = Color3.fromRGB(20, 20, 20),
+    DarkContrast = Color3.fromRGB(14, 14, 14),
+    TextColor = Color3.fromRGB(255, 255, 255)
+}
 
 function fastPrompts()
     for i, obj in ipairs(workspace:GetDescendants()) do
@@ -58,19 +73,6 @@ function autoFarm(speed)
         end
     end
 end
-
-local library = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
-local venyx = library.new("Gas Station Simulator | GalaxyWolfYT", 5012544693)
-
-local themes = {
-    Background = Color3.fromRGB(24, 24, 24),
-    Glow = Color3.fromRGB(0, 0, 0),
-    Accent = Color3.fromRGB(10, 10, 10),
-    LightContrast = Color3.fromRGB(20, 20, 20),
-    DarkContrast = Color3.fromRGB(14, 14, 14),
-    TextColor = Color3.fromRGB(255, 255, 255)
-}
 
 local autoPage = venyx:addPage("Auto Farm", 5012544944)
 local gasSection = autoPage:addSection("Gas Farm")
@@ -134,15 +136,19 @@ local gui = settings:addSection("GUI")
 local colors = settings:addSection("Colors")
 
 gui:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-	venyx:toggle()
+    venyx:toggle()
 end, function()
-	venyx:Notify("Settings", "GUI toggle key changed!")
+    venyx:Notify("Settings", "GUI toggle key changed!")
+end)
+
+gui:addButton("Kill GUI", function()
+    if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
 end)
 
 for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
-	colors:addColorPicker(theme, color, function(color3)
-		venyx:setTheme(theme, color3)
-	end)
+    colors:addColorPicker(theme, color, function(color3)
+        venyx:setTheme(theme, color3)
+    end)
 end
 
 venyx:SelectPage(venyx.pages[1], true)

@@ -1,14 +1,14 @@
-local library = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
-local venyx = library.new("Mine Mania | GalaxyWolfYT", 5012544693)
+local guiName = "Mine Mania | GalaxyWolfYT"
+local lp = game.Players.LocalPlayer
+local rp = game:WaitForChild("ReplicatedStorage")
 
-
---Variables START
 getrenv().autoMineSpeed = 0.5
 getrenv().autoMineRadius = 1000
 
-local lp = game.Players.LocalPlayer
-local rp = game:GetService("ReplicatedStorage")
+if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
+local library = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/GalaxyWolfYT-Official/VenyxUI/main/source.lua"))()
+local venyx = library.new(guiName, 5012544693)
 
 local themes = {
     Background = Color3.fromRGB(24, 24, 24),
@@ -18,8 +18,6 @@ local themes = {
     DarkContrast = Color3.fromRGB(14, 14, 14),
     TextColor = Color3.fromRGB(255, 255, 255)
 }
-
--- Variables END
 
 function getMines()
     local mines = {}
@@ -45,8 +43,8 @@ function damage()
         for _, block in ipairs(mine.MineableBlocks:GetChildren()) do
             if (lp.Character.HumanoidRootPart.Position - block.Position).magnitude < getrenv().autoMineRadius then
                 spawn(function()
-                    rp.Aero.AeroRemoteServices.BlockService.DamageBlock:InvokeServer(
-                        block.UniqueId.Value, block.Parent.Parent)
+                    rp.Aero.AeroRemoteServices.BlockService.DamageBlock:InvokeServer(block.UniqueId.Value,
+                        block.Parent.Parent)
                     sell()
                 end)()
                 task.wait(getrenv().autoMineSpeed)
@@ -84,16 +82,19 @@ local gui = settings:addSection("GUI")
 local colors = settings:addSection("Colors")
 
 gui:addKeybind("Toggle GUI", Enum.KeyCode.Semicolon, function()
-	venyx:toggle()
+    venyx:toggle()
 end, function()
-	venyx:Notify("Settings", "GUI toggle key changed!")
+    venyx:Notify("Settings", "GUI toggle key changed!")
+end)
+
+gui:addButton("Kill GUI", function()
+    if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
 end)
 
 for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
-	colors:addColorPicker(theme, color, function(color3)
-		venyx:setTheme(theme, color3)
-	end)
+    colors:addColorPicker(theme, color, function(color3)
+        venyx:setTheme(theme, color3)
+    end)
 end
-
 
 venyx:SelectPage(venyx.pages[1], true)
