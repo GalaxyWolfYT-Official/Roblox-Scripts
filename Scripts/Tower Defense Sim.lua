@@ -19,7 +19,7 @@ local themes = {
 
 function getPlayerTowers()
     local towers = {}
-    for i, tower in ipairs(workspace.Towers:GetChildren()) do
+    for _, tower in next, workspace.Towers:GetChildren() do
         local success, error = pcall(function()
             if tower:FindFirstChild("Owner") and tower.Owner.Value == lp then
                 table.insert(towers, tower)
@@ -32,7 +32,7 @@ end
 function getFarms()
     local towers = getPlayerTowers()
     local farms = {}
-    for i, tower in ipairs(towers) do
+    for _, tower in next, towers do
         if tower.HumanoidRootPart:FindFirstChild("Coin") then
             table.insert(farms, tower)
         end
@@ -43,7 +43,7 @@ end
 function getNormalTowers()
     local towers = getPlayerTowers()
     local normalTowers = {}
-    for i, tower in pairs(towers) do
+    for _, tower in next, towers do
         if not tower.HumanoidRootPart:FindFirstChild("Coin") then
             table.insert(normalTowers, tower)
         end
@@ -52,7 +52,7 @@ function getNormalTowers()
 end
 
 function sellTroops()
-    for i, troop in pairs(getNormalTowers()) do
+    for _, troop in next, getNormalTowers() do
         RemoteFunction:InvokeServer("Troops", "Sell", {
             ["Troop"] = troop
         })
@@ -67,7 +67,7 @@ end
 
 function sellFarmsOnLastRound()
     if RP.State.Wave.Value == 40 then
-        for i, farm in pairs(getFarms()) do
+        for _, farm in next, getFarms() do
             RemoteFunction:InvokeServer("Troops", "Sell", {
                 ["Troop"] = farm
             })
@@ -76,7 +76,7 @@ function sellFarmsOnLastRound()
 end
 
 function sellFarms()
-    for i, farm in pairs(getFarms()) do
+    for _, farm in next, getFarms() do
         RemoteFunction:InvokeServer("Troops", "Sell", {
             ["Troop"] = farm
         })
@@ -85,14 +85,14 @@ end
 
 function upgradeFarms()
     local farms = getFarms()
-    for i, farm in pairs(farms) do
+    for _, farm in next, farms do
         upgrade(farm)
     end
 end
 
 function upgradeTroops()
     local troops = getNormalTowers()
-    for i, troop in pairs(troops) do
+    for _, troop in next, troops do
         upgrade(troop)
     end
 end
@@ -156,7 +156,7 @@ end, function()
     venyx:Notify("Settings", "GUI toggle key changed!")
 end)
 
-for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+for theme, color in next, themes do -- all in one theme changer, i know, im cool
     colors:addColorPicker(theme, color, function(color3)
         venyx:setTheme(theme, color3)
     end)

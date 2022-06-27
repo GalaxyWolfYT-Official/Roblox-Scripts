@@ -15,8 +15,8 @@ end
 
 function getRGB()
     local colors = {}
-    for _, layer in pairs(getImageInfo(imageDataName)) do
-        for _, rgb in pairs(layer) do
+    for _, layer in next, getImageInfo(imageDataName) do
+        for _, rgb in next, layer do
             local colorR, colorG, colorB = rgb[1], rgb[2], rgb[3]
             table.insert(colors, {colorR, colorG, colorB})
         end
@@ -24,7 +24,7 @@ function getRGB()
     return colors
 end
 
-for pos, rgb in pairs(getRGB()) do
+for pos, rgb in next, getRGB() do
     if paintGrid:FindFirstChild(pos) then
         paintPixel(paintGrid:FindFirstChild(pos), Color3.fromRGB(unpack(rgb)))
     end

@@ -28,7 +28,7 @@ function infiniteWater(bool)
 end
 
 function clean(obj)
-    for _, toClean in ipairs(obj:GetDescendants()) do
+    for _, toClean in next, obj:GetDescendants() do
         spawn(function()
             if toClean:IsA("Texture") and toClean:FindFirstChild("ID") then
                 game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted:FireServer(toClean.ID.Value, .1)

@@ -21,7 +21,7 @@ local themes = {
 
 function getMines()
     local mines = {}
-    for _, obj in ipairs(game.Workspace.Map.Mines:GetDescendants()) do
+    for _, obj in next, game.Workspace.Map.Mines:GetDescendants() do
         if string.find(obj.Name, "Mine") then
             if obj:FindFirstChild("MineableBlocks") and #obj.MineableBlocks:GetChildren() ~= 0 then
                 table.insert(mines, obj)
@@ -32,15 +32,15 @@ function getMines()
 end
 
 function sell()
-    for i, mine in pairs(getMines()) do
+    for _, mine in next, getMines() do
         rp.Aero.AeroRemoteServices.MiningService.SellInventory:InvokeServer(mine.Seller.Seller)
     end
 end
 
 function damage()
     local mines = getMines()
-    for i, mine in ipairs(mines) do
-        for _, block in ipairs(mine.MineableBlocks:GetChildren()) do
+    for _, mine in next, mines do
+        for _, block in next, mine.MineableBlocks:GetChildren() do
             if (lp.Character.HumanoidRootPart.Position - block.Position).magnitude < getrenv().autoMineRadius then
                 spawn(function()
                     rp.Aero.AeroRemoteServices.BlockService.DamageBlock:InvokeServer(block.UniqueId.Value,
@@ -91,7 +91,7 @@ gui:addButton("Kill GUI", function()
     if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
 end)
 
-for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+for theme, color in next, themes do -- all in one theme changer, i know, im cool
     colors:addColorPicker(theme, color, function(color3)
         venyx:setTheme(theme, color3)
     end)

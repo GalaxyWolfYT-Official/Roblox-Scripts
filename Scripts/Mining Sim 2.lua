@@ -80,7 +80,7 @@ function tpTo(pos)
 end
 
 function openCrates()
-    for _, obj in ipairs(crates:GetChildren()) do
+    for _, obj in next, crates:GetChildren() do
         local objName = obj.Name
         local objParent = obj.Parent
         if obj:IsA("Frame") then
@@ -93,14 +93,14 @@ function openCrates()
 end
 
 function redeemCodes()
-    for _, code in pairs(codes) do
+    for _, code in next, codes do
         rp.Functions.RedeemCode:InvokeServer(string.lower(code))
     end
 end
 
 function getChests()
     local chests = {}
-    for _, obj in ipairs(workspace.Checkpoints:GetChildren()) do
+    for _, obj in next, workspace.Checkpoints:GetChildren() do
         if obj:FindFirstChild("Chest") then
             table.insert(chests, obj.Chest)
         end
@@ -110,7 +110,7 @@ end
 
 function getTreasures()
     local ogPos = lp.Character.HumanoidRootPart.CFrame
-    for _, obj in ipairs(getChests()) do
+    for _, obj in next, getChests() do
         if (obj.Activation.Tag.BillboardGui.Title.Visible == false) then
             obj = obj.Activation.Root
             if obj:FindFirstChild("TouchInterest") then
@@ -136,14 +136,14 @@ end
 function getOreNames()
     local ores = {}
     table.insert(ores, "Select/None")
-    for _, obj in ipairs(rp.Assets.BlockDecorations:GetChildren()) do
+    for _, obj in next, rp.Assets.BlockDecorations:GetChildren() do
         table.insert(ores, obj.Name)
     end
     return ores
 end
 
 function mine()
-    for _, block in ipairs(workspace.Chunks:GetDescendants()) do
+    for _, block in next, workspace.Chunks:GetDescendants() do
         if block:IsA("Part") and table.find(getrenv().selectedOres, block.Name) then
             local success, error = pcall(function()
                 repeat
@@ -157,7 +157,7 @@ function mine()
 end
 
 function grabChests()
-    for _, chest in ipairs(workspace.Chests:GetChildren()) do
+    for _, chest in next, workspace.Chests:GetChildren() do
         if table.find(getrenv().selectedChests, chest.Name) then
             local success, err = pcall(function()
                 repeat

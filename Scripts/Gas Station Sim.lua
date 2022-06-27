@@ -23,7 +23,7 @@ local themes = {
 }
 
 function fastPrompts()
-    for i, obj in ipairs(workspace:GetDescendants()) do
+    for _, obj in next, workspace:GetDescendants() do
         if table.find(promptNameList, obj.Name) then
             obj.HoldDuration = getrenv().promptSpeed
         end
@@ -31,7 +31,7 @@ function fastPrompts()
 end
 
 function longPrompts()
-    for i, obj in ipairs(workspace:GetDescendants()) do
+    for _, obj in next, workspace:GetDescendants() do
         if table.find(promptNameList, obj.Name) then
             obj.MaxActivationDistance = getrenv().promptReach
         end
@@ -43,7 +43,7 @@ function energy()
     energyAmount = string.gsub(energyAmount, "%%", "")
 
     if tonumber(energyAmount) <= 50 then
-        for i, obj in ipairs(workspace:GetDescendants()) do
+        for _, obj in next, workspace:GetDescendants() do
             if obj.Name == "BuyBloxBull" then
                 fireproximityprompt(obj, 1000)
             end
@@ -52,7 +52,7 @@ function energy()
 end
 
 function autoFarm(speed)
-    for i, obj in ipairs(workspace:GetDescendants()) do
+    for _, obj in next, workspace:GetDescendants() do
         energy()
         if obj.name == "Refuel" then
             local bank = lp.PlayerGui.GameUI.Stats.Bank.Bank.Text
@@ -145,7 +145,7 @@ gui:addButton("Kill GUI", function()
     if game:GetService("CoreGui"):FindFirstChild(guiName) then game:GetService("CoreGui"):FindFirstChild(guiName):Destroy() end
 end)
 
-for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+for theme, color in next, themes do -- all in one theme changer, i know, im cool
     colors:addColorPicker(theme, color, function(color3)
         venyx:setTheme(theme, color3)
     end)
